@@ -1,5 +1,7 @@
 package control;
 
+import java.util.Date;
+
 import modelo.Persona;
 
 public class Ejercicios1 {
@@ -155,28 +157,29 @@ public class Ejercicios1 {
 	}
 
 	public void creaListaPersonas() {
-		Persona[] listaPersonas = new Persona[20];
-		Persona juan = new Persona("987654321Z", "Juan El Polla", 'M', null);
+		Persona juan = new Persona("987654321Z", "Juan El Polla", 'M', new Date());
 		Persona pepe = new Persona();
-		Persona luisa = new Persona("666555999T", "Luisa La Verdulera", 'F', null);
+		Persona luisa = new Persona("666555999T", "Luisa La Verdulera", 'F', new Date());
+		Persona[] listaPersonas = new Persona[20];
 		listaPersonas[0] = juan;
 		listaPersonas[1] = pepe;
 		listaPersonas[2] = luisa;
 		for (int i = 0; i < listaPersonas.length; i++) {
-			System.out.println(listaPersonas[i].getNif());
+			if (listaPersonas[i] != null)
+				System.out.println(listaPersonas[i].getNombre());
 		}
 	}
 
 	public void crearHebras(int cuantas) {
-		for(int i = 0; i < cuantas; i++){
+		for (int i = 0; i < cuantas; i++) {
 			Thread hebra = new Hebra();
 			hebra.setName("Hebra" + i);
 			hebra.start();
 		}
-		/*hebra1.setName("hebra1");
-		hebra2.setName("hebra2");
-		hebra1.start();
-		hebra2.start();*/
+		/*
+		 * hebra1.setName("hebra1"); hebra2.setName("hebra2"); hebra1.start();
+		 * hebra2.start();
+		 */
 	}
 
 	public static void main(String[] args) {
@@ -218,8 +221,8 @@ public class Ejercicios1 {
 		 */
 		// ej1.listaPrimos(100);
 
-		//ej1.creaListaPersonas();
-		
-		ej1.crearHebras(3);
+		ej1.creaListaPersonas();
+
+		// ej1.crearHebras(3);
 	}
 }
