@@ -2,6 +2,8 @@ package control;
 
 import java.util.Date;
 
+import modelo.Estudiante;
+
 import modelo.Persona;
 
 public class Ejercicios1 {
@@ -164,11 +166,16 @@ public class Ejercicios1 {
 		listaPersonas[0] = juan;
 		listaPersonas[1] = pepe;
 		listaPersonas[2] = luisa;
-		for (int i = 0; i < listaPersonas.length; i++) {
-			if (listaPersonas[i] != null)
-				System.out.println(listaPersonas[i].getNombre());
+			for (int i = 0; i < listaPersonas.length; i++) {
+				try {
+				// if (listaPersonas[i] != null)
+					System.out.println(listaPersonas[i].getNombre());
+				} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+					System.out.println("El objeto no es nulo.");
+				}
+			}
 		}
-	}
 
 	public void crearHebras(int cuantas) {
 		for (int i = 0; i < cuantas; i++) {
@@ -223,6 +230,10 @@ public class Ejercicios1 {
 
 		ej1.creaListaPersonas();
 
+		Estudiante jorge = new Estudiante("987654321A", "Jorge", 'M', new Date(), 1, "2010-03-01");
+
 		// ej1.crearHebras(3);
+
+		// Práctica: crear un objeto de la clase Estudiante.
 	}
 }
