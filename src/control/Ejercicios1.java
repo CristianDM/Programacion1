@@ -1,9 +1,10 @@
 package control;
 
 import java.util.Date;
+import java.util.Random;
+import java.util.Scanner;
 
-import modelo.Estudiante;
-
+import modelo.Intento;
 import modelo.Persona;
 
 public class Ejercicios1 {
@@ -166,16 +167,16 @@ public class Ejercicios1 {
 		listaPersonas[0] = juan;
 		listaPersonas[1] = pepe;
 		listaPersonas[2] = luisa;
-			for (int i = 0; i < listaPersonas.length; i++) {
-				try {
+		for (int i = 0; i < listaPersonas.length; i++) {
+			try {
 				// if (listaPersonas[i] != null)
-					System.out.println(listaPersonas[i].getNombre());
-				} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-					System.out.println("El objeto no es nulo.");
-				}
+				System.out.println(listaPersonas[i].getNombre());
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				System.out.println("El objeto no es nulo.");
 			}
 		}
+	}
 
 	public void crearHebras(int cuantas) {
 		for (int i = 0; i < cuantas; i++) {
@@ -187,6 +188,110 @@ public class Ejercicios1 {
 		 * hebra1.setName("hebra1"); hebra2.setName("hebra2"); hebra1.start();
 		 * hebra2.start();
 		 */
+	}
+
+	// Práctica: Leer datos desde el teclado y convertir esa cadena en un entero
+
+	public void adivinaNumero() {
+
+		int[] intervalo = generarIntervalo();
+
+		int numeroAleatorio = generaNumeroAleatorioEntre(intervalo[0], intervalo[1]);
+
+		jugarAdivinaNumero(numeroAleatorio);
+	}
+
+	public int[] generarIntervalo() {
+		Scanner teclado = new Scanner(System.in);
+		boolean error1 = true;
+		int min = 0;
+		int max = 0;
+		while (error1) {
+			System.out.println("Teclee el intervalo (min/max)");
+			String intervalo = teclado.nextLine();
+			String[] limites = intervalo.split("/");
+			if (limites.length != 2) {
+				System.out.println("Teclee dos valores");
+				continue;
+			}
+			try {
+				min = Integer.parseInt(limites[0]);
+				max = Integer.parseInt(limites[1]);
+				if (min >= max) {
+					System.out.println("El primer numero introducido ha de ser menor que el segundo.");
+					continue;
+				}
+				error1 = false;
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Los datos introducidos no son correctos");
+				continue;
+			}
+		}
+		System.out.println("Los números son válidos.");
+		int[] intervalo = new int[2];
+		intervalo[0] = min;
+		intervalo[1] = max;
+		return intervalo;
+	}
+
+	public int generaNumeroAleatorioEntre(int min, int max) {
+		return new Random().nextInt(max - min) + min;
+	}
+
+	public void jugarAdivinaNumero(int numeroAleatorio) {
+		int contadorIntentos = 0;
+		Intento[] intentos = new Intento[200];
+		boolean jugando = true;
+		do {
+			// Validamos el número aleatorio
+			boolean error1 = true;
+			int numeroObjetivo = 0;
+			while (error1) {
+				try {
+					Scanner teclado = new Scanner(System.in);
+					System.out.println("Teclee un número entero.");
+					String numeroTecleado = teclado.nextLine();
+
+					if (numeroTecleado.compareToIgnoreCase("Q") == 0) {
+						System.out.println("Fin de la partida. Hasta la próxima.");
+						System.exit(0);
+					}
+
+					numeroObjetivo = Integer.parseInt(numeroTecleado);
+					error1 = false;
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Número incorrecto.");
+				}
+			}
+			//Creamos el intento.
+			Intento intento = new Intento(numeroObjetivo, new Date());
+			//Guardamos el intento.
+			intentos[contadorIntentos++] = intento;
+			
+			//Mostrar los intentos realizados hasta el momento.
+			for(int i = 0; i < intentos.length; i++){
+				try {
+					System.out.printf("%d, \t%d\t%s\n", i+1, intentos[i].getNumeroIntroducido(), intentos[i].getFechaHora());
+				} catch (NullPointerException e) {
+					// TODO Auto-generated catch block
+					break;
+				}
+			}
+
+			// El número tecleado es válido.
+
+			if (numeroObjetivo < numeroAleatorio)
+				System.out.println("Pruebe un número mayor.");
+			else if (numeroObjetivo > numeroAleatorio) {
+				System.out.println("Pruebe un número menor.");
+			} else {
+				System.out.println("Has acertado. Felicidades.");
+				jugando = false;
+			}
+
+		} while (jugando);
 	}
 
 	public static void main(String[] args) {
@@ -228,12 +333,15 @@ public class Ejercicios1 {
 		 */
 		// ej1.listaPrimos(100);
 
-		ej1.creaListaPersonas();
-
-		Estudiante jorge = new Estudiante("987654321A", "Jorge", 'M', new Date(), 1, "2010-03-01");
+		/*
+		 * ej1.creaListaPersonas();
+		 * 
+		 * Estudiante jorge = new Estudiante("987654321A", "Jorge", 'M', new
+		 * Date(), 1, "2010-03-01");
+		 */
 
 		// ej1.crearHebras(3);
 
-		// Práctica: crear un objeto de la clase Estudiante.
+		ej1.adivinaNumero();
 	}
 }
