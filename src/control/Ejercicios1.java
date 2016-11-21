@@ -1,5 +1,6 @@
 package control;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
@@ -250,7 +251,7 @@ public class Ejercicios1 {
 			while (error1) {
 				try {
 					Scanner teclado = new Scanner(System.in);
-					System.out.println("Teclee un número entero.");
+					System.out.println("Teclee un número entero ó Q/q para salir.");
 					String numeroTecleado = teclado.nextLine();
 
 					if (numeroTecleado.compareToIgnoreCase("Q") == 0) {
@@ -265,15 +266,15 @@ public class Ejercicios1 {
 					System.out.println("Número incorrecto.");
 				}
 			}
-			//Creamos el intento.
+			// Creamos el intento.
 			Intento intento = new Intento(numeroObjetivo, new Date());
-			//Guardamos el intento.
+			// Guardamos el intento.
 			intentos[contadorIntentos++] = intento;
-			
-			//Mostrar los intentos realizados hasta el momento.
-			for(int i = 0; i < intentos.length; i++){
+
+			// Mostrar los intentos realizados hasta el momento.
+			for (int i = 0; i < intentos.length; i++) {
 				try {
-					System.out.printf("%d, \t%d\t%s\n", i+1, intentos[i].getNumeroIntroducido(), intentos[i].getFechaHora());
+					System.out.printf("%d, \t%d\t%s\n", i + 1, intentos[i].getNumero(), intentos[i].getFechaHora());
 				} catch (NullPointerException e) {
 					// TODO Auto-generated catch block
 					break;
@@ -292,6 +293,87 @@ public class Ejercicios1 {
 			}
 
 		} while (jugando);
+	}
+
+	public void ordenaListaCadenas(String[] lista) {
+		for (int i = 0; i < lista.length - 1; i++) {
+			for (int j = i + 1; j < lista.length; j++) {
+				if (lista[i].compareTo(lista[j]) > 0) // hay que permutar
+				{
+					String aux = lista[i];
+					lista[i] = lista[j];
+					lista[j] = aux;
+				}
+			}
+		}
+	}
+
+	public void ordenaListaNumeros(int[] lista) {
+		for (int i = 0; i < lista.length - 1; i++) {
+			for (int j = i + 1; j < lista.length; j++) {
+				if (lista[i] > (lista[j])) // hay que permutar
+				{
+					int aux = lista[i];
+					lista[i] = lista[j];
+					lista[j] = aux;
+				}
+			}
+		}
+	}
+
+	public boolean busquedaBinaria(int buscame, Integer[] numeros) {
+		int min = 0;
+		int max = numeros.length - 1;
+		int medio;
+
+		while (min <= max) {
+			medio = min + ((max - min) / 2);
+			if (numeros[medio] == buscame)
+				return true;
+			else if (numeros[medio] > buscame)
+				max = medio - 1;
+			else
+				min = medio + 1;
+		}
+		return false;
+	}
+
+	public String ordenaCadena(String cadena) {
+		char[] letras = cadena.toCharArray();
+		Arrays.sort(letras);
+		String cadenaOrdenada = new String(letras);
+		return cadenaOrdenada;
+	}
+
+	public int[] mezclaArraysEnteros(int[] array1, int[] array2) {
+		int[] arrayResultado = new int[array1.length + array2.length];
+		int i = 0;
+		int j = 0;
+		int k = 0;
+
+		while (k < arrayResultado.length) {
+			try {
+				if (array1[i] < array2[j]) {
+					arrayResultado[k] = array1[i];
+					i++;
+				} else {
+					arrayResultado[k] = array2[j];
+					j++;
+				}
+				k++;
+			} catch (ArrayIndexOutOfBoundsException e) {
+				if (i >= array1.length) {
+					array1[i - 1] = Integer.MAX_VALUE;
+					i--;
+				} else if (j >= array2.length) {
+					array2[j - 1] = Integer.MAX_VALUE;
+					j--;
+				}
+			}
+		}
+
+		return arrayResultado;
+
 	}
 
 	public static void main(String[] args) {
@@ -342,6 +424,34 @@ public class Ejercicios1 {
 
 		// ej1.crearHebras(3);
 
-		ej1.adivinaNumero();
+		// ej1.adivinaNumero();
+
+		/*
+		 * String[] nombres = {"Paco", "Carlos", "María", "Luis", "Fernando", "Isabel"}; 
+		 * ej1.ordenaListaCadenas(nombres);
+		 */
+
+		/*
+		 * Integer[] numeros = { 1, 8, 9, 4, 2, 99 };
+		 * ej1.ordenaListaNumeros(numeros); 
+		 * boolean encontrado = ej1.busquedaBinaria(99, numeros); 
+		 * if (encontrado) {
+		 * System.out.println("Número encontrado."); 
+		 * } else {
+		 * System.out.println("Número no encontrado."); 
+		 * }
+		 */
+
+		// System.out.println(ej1.ordenaCadena("esternocleidomastoideo"));
+
+		int[] array1 = { 1, 3, 5, 7, 9, 11, 13 };
+		int[] array2 = { 0, 2, 4, 6, 8 };
+		
+		ej1.ordenaListaNumeros(array1);
+		ej1.ordenaListaNumeros(array2);
+		
+		int[] arrayResultado = ej1.mezclaArraysEnteros(array1, array2);
+		System.out.println("Mezcla terminada");
+
 	}
 }

@@ -3,24 +3,42 @@ package modelo;
 import java.util.Date;
 
 public class Intento {
-	private int numeroIntroducido;
+	private int numero;
 	private Date fechaHora;
-	public Intento(int numeroIntroducido, Date fechaHora) {
-		super();
-		this.numeroIntroducido = numeroIntroducido;
-		this.fechaHora = fechaHora;
+	private String respuesta;
+
+	public String getRespuesta() {
+		return respuesta;
 	}
-	public int getNumeroIntroducido() {
-		return numeroIntroducido;
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
 	}
-	public void setNumeroIntroducido(int numeroIntroducido) {
-		this.numeroIntroducido = numeroIntroducido;
+
+	public int getNumero() {
+		return numero;
 	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
 	public Date getFechaHora() {
 		return fechaHora;
 	}
+
 	public void setFechaHora(Date fechaHora) {
 		this.fechaHora = fechaHora;
 	}
-}
 
+	public Intento(int numero, Date fechaHora) {
+		super();
+		this.numero = numero;
+		this.fechaHora = fechaHora;
+	}
+
+	@Override
+	public String toString() {
+		return numero + ","+ fechaHora + " ,"+ respuesta+"\n";
+	}
+}
