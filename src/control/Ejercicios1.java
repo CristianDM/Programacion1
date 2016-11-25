@@ -375,6 +375,36 @@ public class Ejercicios1 {
 		return arrayResultado;
 
 	}
+	
+	public int[] sumaFilasMatrizEnteros (int[][] matriz){
+		int[] resultado = new int[matriz.length];
+		for (int i = 0; i < matriz.length; i++){
+			for (int j = 0; j < matriz[i].length; j++){
+				resultado[i] += matriz[i][j];
+			}
+		}
+		return resultado;
+	}
+	
+	public int[] sumaColumnasMatrizEnteros (int[][] matriz){
+		int numMaxColumnas = 0;
+		for (int i = 0; i < matriz.length; i++) {
+			if (matriz[i].length > numMaxColumnas){
+				numMaxColumnas = matriz[i].length;
+			}
+		}
+		int[] resultado = new int[numMaxColumnas];
+		for (int j = 0; j < numMaxColumnas; j++) {
+			for (int i = 0; i < matriz.length; i++) {
+				//try {
+				if (i < matriz.length && j < matriz[i].length){
+					resultado[j] += matriz[i][j];
+				//} catch (ArrayIndexOutOfBoundsException e) {
+				}
+			}
+		}
+		return resultado;
+	}
 
 	public static void main(String[] args) {
 		Ejercicios1 ej1 = new Ejercicios1();
@@ -444,14 +474,19 @@ public class Ejercicios1 {
 
 		// System.out.println(ej1.ordenaCadena("esternocleidomastoideo"));
 
-		int[] array1 = { 1, 3, 5, 7, 9, 11, 13 };
+		/*int[] array1 = { 1, 3, 5, 7, 9, 11, 13 };
 		int[] array2 = { 0, 2, 4, 6, 8 };
 		
 		ej1.ordenaListaNumeros(array1);
 		ej1.ordenaListaNumeros(array2);
 		
 		int[] arrayResultado = ej1.mezclaArraysEnteros(array1, array2);
-		System.out.println("Mezcla terminada");
+		System.out.println("Mezcla terminada");*/
+		
+		int[][] matriz = {{1, 5, 3, 3, 1, 9}, {2, 4}, {0, 8, 7, 6}};
+		//int[] sumaFilas = ej1.sumaFilasMatrizEnteros(matriz);
+		int[] sumaColumnas = ej1.sumaColumnasMatrizEnteros(matriz);
+		System.out.println("Se acabó, pibe.");
 
 	}
 }
